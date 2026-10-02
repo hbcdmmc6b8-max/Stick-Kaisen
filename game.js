@@ -14,7 +14,17 @@ const roster=[
  {id:"blood",name:"BLOOD BROTHER",accent:"#b51f38",body:"#3b2b49",skin:"#d7b5a3",domain:"CRIMSON CHAMBER",sub:"BLOOD OBEYS",techs:["PIERCING BLOOD","SUPER NOVA","FLOWING RED"]},
  {id:"killer",name:"SORCERER KILLER",accent:"#8aa0a6",body:"#151718",skin:"#d5b09a",domain:"NO DOMAIN",sub:"HEAVENLY RESTRICTION",techs:["CHAIN","RUSH"]},
  {id:"thunder",name:"THUNDER GOD",accent:"#6be8ff",body:"#24313a",skin:"#d8b49e",domain:"STORM ALTAR",sub:"LIGHTNING ANSWERS",techs:["BOLT","CHARGE"]},
- {id:"shaper",name:"SOUL SHAPER",accent:"#8e7cff",body:"#2b2d35",skin:"#c9b3a6",domain:"SOUL MIRROR",sub:"THE SHAPE WITHIN",techs:["TRANSFIGURE","SOUL BURST"]}
+ {id:"shaper",name:"SOUL SHAPER",accent:"#8e7cff",body:"#2b2d35",skin:"#c9b3a6",domain:"SOUL MIRROR",sub:"THE SHAPE WITHIN",techs:["TRANSFIGURE","SOUL BURST"]},
+ {id:"copycat",name:"COPYCAT",accent:"#d9d9ff",body:"#f0f0f3",skin:"#d8b59f",domain:"BOUNDLESS ARSENAL",sub:"BORROWED TECHNIQUES",techs:["COPY","RING CALL","BEAM"]},
+ {id:"heavenly",name:"HEAVENLY FIGHTER",accent:"#76d7b5",body:"#1b2020",skin:"#d6b099",domain:"NO DOMAIN",sub:"ZERO CURSED ENERGY",techs:["SPLIT STRIKE","AIR STEP"]},
+ {id:"swordsman",name:"SIMPLE SWORDSMAN",accent:"#79a7ff",body:"#20242b",skin:"#d5b39e",domain:"NO DOMAIN",sub:"SIMPLE DOMAIN MASTER",techs:["DRAW CUT","EVENING MOON"]},
+ {id:"medium",name:"MASKED MEDIUM",accent:"#d3925b",body:"#27252a",skin:"#d7b19b",domain:"NO DOMAIN",sub:"AUSPICIOUS BEASTS",techs:["HORN","DRAGON"]},
+ {id:"king",name:"KING OF CURSES",accent:"#ff4c5f",body:"#f1d5cf",skin:"#d4a68e",domain:"RUINED SHRINE",sub:"OPEN BARRIER",techs:["DISMANTLE","CLEAVE","DIVINE FLAME"]},
+ {id:"ice",name:"ICE STAR",accent:"#b7efff",body:"#e9edf4",skin:"#d5b5a1",domain:"FROZEN SANCTUM",sub:"ABSOLUTE COLD",techs:["FROST CALM","ICE FALL"]},
+ {id:"angel",name:"ANGEL",accent:"#fff0a6",body:"#f2f0e8",skin:"#d9b49e",domain:"NO DOMAIN",sub:"EXTINGUISH TECHNIQUES",techs:["TRUMPET LIGHT","JACOB"]},
+ {id:"speaker",name:"CURSED SPEAKER",accent:"#b7c1d8",body:"#20242a",skin:"#d6b29d",domain:"NO DOMAIN",sub:"WORDS BECOME COMMANDS",techs:["STOP","BLAST AWAY"]},
+ {id:"nail",name:"NAIL SORCERER",accent:"#e6a7b6",body:"#202126",skin:"#d9b49f",domain:"NO DOMAIN",sub:"RESONANCE",techs:["NAIL SHOT","RESONANCE"]},
+ {id:"rhythm",name:"RHYTHM DANCER",accent:"#ffbd6b",body:"#ece2d7",skin:"#9b6d52",domain:"NO DOMAIN",sub:"RHYTHM BREAKS CURSES",techs:["STEP","PRAYER SONG"]}
 ];
 const p={x:220,y:0,vx:0,vy:0,face:1,hp:100,ce:100,aw:0,on:true,attack:0,attackMax:.32,combo:0,comboT:0,dash:0,dashMax:.46,block:false,blockBlend:0,awakened:false,land:0,techAnim:0,techMax:.78,domainAnim:0,domainActive:0,domainMax:2.15,hitstop:0,animSeed:0};
 const e={x:700,y:0,vx:0,vy:0,hp:100,on:true,hit:0};
@@ -49,6 +59,16 @@ function resolveTechnique(id,move){
  else if(id==="killer"){hitEnemy(move==="RUSH"?22:18,move==="RUSH"?760:600,230);burst(e.x,e.y-45,24,"steel",3)}
  else if(id==="thunder"){hitEnemy(move==="BOLT"?22:16,610,340);burst(e.x,e.y-65,46,"lightning",3)}
  else if(id==="shaper"){hitEnemy(move==="SOUL BURST"?24:17,570,270);burst(e.x,e.y-55,42,"soul",3)}
+ else if(id==="copycat"){hitEnemy(move==="BEAM"?26:move==="RING CALL"?20:16,move==="BEAM"?820:520,360);burst(e.x,e.y-55,move==="BEAM"?60:34,"hollow",3)}
+ else if(id==="heavenly"){hitEnemy(move==="SPLIT STRIKE"?22:17,move==="SPLIT STRIKE"?760:520,230);burst(e.x,e.y-45,28,"steel",3)}
+ else if(id==="swordsman"){hitEnemy(move==="DRAW CUT"?21:17,690,250);burst(e.x,e.y-50,32,"blue",3)}
+ else if(id==="medium"){hitEnemy(move==="DRAGON"?22:17,610,290);burst(e.x,e.y-55,34,"gold",3)}
+ else if(id==="king"){const dmg=move==="DIVINE FLAME"?30:move==="CLEAVE"?23:18;hitEnemy(dmg,move==="DIVINE FLAME"?900:700,move==="DISMANTLE"?360:180);burst(e.x,e.y-55,move==="DIVINE FLAME"?70:38,move==="DIVINE FLAME"?"red":"slash",4)}
+ else if(id==="ice"){hitEnemy(move==="ICE FALL"?23:18,520,330);burst(e.x,e.y-55,48,"blue",3)}
+ else if(id==="angel"){hitEnemy(move==="JACOB"?26:18,620,360);burst(e.x,e.y-80,56,"gold",3)}
+ else if(id==="speaker"){hitEnemy(move==="BLAST AWAY"?23:16,move==="BLAST AWAY"?820:320,420);burst(e.x,e.y-55,34,"steel",3)}
+ else if(id==="nail"){hitEnemy(move==="RESONANCE"?24:16,560,310);burst(e.x,e.y-55,38,"blood",3)}
+ else if(id==="rhythm"){hitEnemy(move==="PRAYER SONG"?22:16,540,290);burst(p.x,p.y-55,42,"gold",3)}
 }
 function nextTechnique(){if(!p.awakened)return;techIndex=(techIndex+1)%cur().techs.length;toast(cur().techs[techIndex])}
 function startDomain(){if(cur().domain==="NO DOMAIN"){toast("NO DOMAIN");return}if(!p.awakened||p.ce<80||p.domainAnim>0||p.domainActive>0)return;p.ce-=80;p.domainAnim=p.domainMax;p.vx=0;shake=10;ui.cinemaName.textContent=cur().domain;ui.cinemaSub.textContent=cur().sub;ui.cinema.classList.add("show");setTimeout(()=>flash(),620);setTimeout(()=>{if(p.domainAnim>0){p.domainActive=8;burst(p.x,p.y-60,90,"domain",4);shake=24}},1420)}
@@ -64,7 +84,17 @@ addEventListener("keyup",q=>{if(q.key==="a"||q.key==="ArrowLeft")key.left=false;
 function physics(o,dt){const was=o.on;o.vy+=1500*dt;o.x+=o.vx*dt;o.y+=o.vy*dt;o.vx*=Math.pow(.0015,dt);if(o.y>=ground()){o.y=ground();o.vy=0;o.on=true;if(!was&&o===p){p.land=.18;burst(p.x,p.y,8,"dust",2)}}o.x=Math.max(45,Math.min(W-45,o.x))}
 function limb(ax,ay,bx,by,cx,cy,w=7,col="#101114"){ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.lineTo(cx,cy);ctx.strokeStyle=col;ctx.lineWidth=w;ctx.stroke()}
 function pose(o){const d=o.face,run=Math.min(1,Math.abs(o.vx)/260),phase=q30(time)*13,step=Math.sin(phase)*run;let z={bodyX:0,bodyY:-56,headY:-86,la:[-d*15,-44,-d*26,-27],ra:[d*15,-44,d*27,-28],ll:[-12,-19,-19,0],rl:[12,-19,20,0],rot:0};
- if(run>.08&&o.on&&o.attack<=0&&o.techAnim<=0&&o.domainAnim<=0){const bounce=Math.abs(Math.sin(phase));z.bodyX=d*(3+2*Math.sin(phase*2));z.bodyY=-56+bounce*3;z.headY=-86+bounce*2;z.ll=[-d*step*14,-17,d*step*25,0];z.rl=[d*step*14,-17,-d*step*25,0];z.la=[-d*15,-45,d*step*19,-28];z.ra=[d*15,-45,-d*step*19,-28];z.rot=d*Math.sin(phase)*.018}
+ if(run>.08&&o.on&&o.attack<=0&&o.techAnim<=0&&o.domainAnim<=0){const bounce=Math.abs(Math.sin(phase)),id=cur().id;
+   const gait=id==="judge"||id==="swordsman"?.72:id==="gambler"||id==="switcher"?1.2:id==="killer"||id==="heavenly"?1.35:id==="honored"?0.82:1;
+   const stride=25*gait,arm=19*gait,lean=id==="killer"||id==="heavenly"?.045:id==="honored"?-.008:.018;
+   z.bodyX=d*(3+2*Math.sin(phase*2))*gait;z.bodyY=-56+bounce*(id==="gambler"?5:id==="judge"?1.5:3);z.headY=-86+bounce*2;
+   z.ll=[-d*step*14,-17,d*step*stride,0];z.rl=[d*step*14,-17,-d*step*stride,0];
+   z.la=[-d*15,-45,d*step*arm,-28];z.ra=[d*15,-45,-d*step*arm,-28];z.rot=d*Math.sin(phase)*lean;
+   if(id==="honored"){z.la=[-d*10,-44,-d*15,-25];z.ra=[d*10,-44,d*15,-25]}
+   if(id==="judge"){z.la=[-d*10,-44,-d*18,-29];z.ra=[d*10,-44,d*15,-30]}
+   if(id==="gambler"){z.bodyX+=d*3;z.rot+=d*.03}
+   if(id==="king"){z.bodyY-=2;z.headY-=2}
+ }
  if(!o.on){const rise=clamp(-o.vy/620,-1,1);z.bodyY=-59;z.headY=-90;z.ll=[-13,-23,-27,-5];z.rl=[13,-23,29,-11];z.la=[-d*14,-49,-d*(26+8*rise),-34];z.ra=[d*14,-49,d*(28+7*rise),-38]}
  if(o.land>0){const t=1-o.land/.18,s=Math.sin(t*Math.PI);z.bodyY=-56+10*s;z.headY=-86+8*s;z.ll=[-15,-16,-31,0];z.rl=[15,-16,31,0]}
  const bb=o.blockBlend;if(bb>.01){const t=ease(bb);z.bodyX=-d*6*t;z.la=[-d*(10-3*t),-48,d*(2+20*t),-40-30*t];z.ra=[d*9,-48,d*(20+10*t),-35-23*t];z.rot=-d*.035*t}
@@ -91,6 +121,16 @@ function outfitExtras(id,z,d){
  if(id==="gambler"){ctx.strokeStyle="#ececec";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(z.bodyX-8,z.bodyY+2);ctx.lineTo(z.bodyX+8,z.bodyY+2);ctx.stroke()}
  if(id==="killer"){ctx.strokeStyle="#777";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-13,-31);ctx.lineTo(15,-43);ctx.stroke()}
  if(id==="thunder"){ctx.strokeStyle="#6be8ff";ctx.lineWidth=2;ctx.globalAlpha=.6;ctx.beginPath();ctx.moveTo(-14,-54);ctx.lineTo(0,-45);ctx.lineTo(-8,-35);ctx.lineTo(15,-25);ctx.stroke();ctx.globalAlpha=1}
+ if(id==="copycat"){ctx.strokeStyle="#111";ctx.lineWidth=4;ctx.beginPath();ctx.arc(d*25,-37,12,0,Math.PI*2);ctx.stroke();ctx.fillStyle="#d8d8ff";ctx.beginPath();ctx.arc(d*25,-37,5,0,Math.PI*2);ctx.fill()}
+ if(id==="heavenly"){ctx.strokeStyle="#7cae9c";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-14,-31);ctx.lineTo(17,-44);ctx.stroke()}
+ if(id==="swordsman"){ctx.strokeStyle="#aab6c8";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-d*15,-34);ctx.lineTo(-d*38,-6);ctx.stroke()}
+ if(id==="medium"){ctx.fillStyle="#d8c7b8";ctx.fillRect(z.bodyX-17,z.headY-4,34,9)}
+ if(id==="king"){ctx.strokeStyle="#231416";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(z.bodyX-12,z.headY+3);ctx.lineTo(z.bodyX+12,z.headY+3);ctx.stroke();ctx.fillStyle="#6b1620";ctx.fillRect(z.bodyX-3,z.headY+8,6,3)}
+ if(id==="ice"){ctx.strokeStyle="#b7efff";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-15,-45);ctx.lineTo(15,-45);ctx.stroke()}
+ if(id==="angel"){ctx.strokeStyle="#fff0a6";ctx.lineWidth=3;ctx.beginPath();ctx.arc(z.bodyX,z.headY-26,20,0,Math.PI*2);ctx.stroke()}
+ if(id==="speaker"){ctx.fillStyle="#3c4250";ctx.fillRect(z.bodyX-18,z.headY+6,36,7)}
+ if(id==="nail"){ctx.strokeStyle="#999";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(d*18,-36);ctx.lineTo(d*36,-26);ctx.stroke()}
+ if(id==="rhythm"){ctx.strokeStyle="#ffbd6b";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-16,-50);ctx.lineTo(16,-28);ctx.stroke()}
 }
 function fighter(o){const f=cur(),id=f.id,z=pose(o),d=o.face;ctx.save();ctx.translate(o.x,o.y);ctx.rotate(z.rot);ctx.lineCap="round";ctx.lineJoin="round";
  if(o.domainActive>0){ctx.strokeStyle=f.accent;ctx.globalAlpha=.22+.1*Math.sin(time*11);ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-56,52+Math.sin(time*7)*6,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
@@ -128,7 +168,9 @@ function drawDomainStage(id){const f=cur();
  else if(id==="gambler"){ctx.fillStyle="#09140f";ctx.fillRect(0,0,W,H);ctx.fillStyle="#55ff9f";ctx.globalAlpha=.2;for(let i=0;i<20;i++)ctx.fillRect((i*87+time*50)%W,(i*61)%H,36,12);ctx.globalAlpha=1}
  else if(id==="blood"){ctx.fillStyle="#18070b";ctx.fillRect(0,0,W,H);ctx.strokeStyle="#651226";for(let i=0;i<15;i++){ctx.beginPath();ctx.arc((i*79)%W,(i*47)%H,20+(i%4)*9,0,Math.PI*2);ctx.stroke()}}
  else if(id==="thunder"){ctx.fillStyle="#061016";ctx.fillRect(0,0,W,H);ctx.strokeStyle="#6be8ff";ctx.globalAlpha=.4;for(let i=0;i<12;i++){ctx.beginPath();ctx.moveTo((i*107)%W,0);ctx.lineTo((i*77+60)%W,H);ctx.stroke()}ctx.globalAlpha=1}
- else if(id==="shaper"){ctx.fillStyle="#0d0a16";ctx.fillRect(0,0,W,H);ctx.strokeStyle="#8e7cff";ctx.globalAlpha=.25;for(let i=0;i<18;i++){ctx.beginPath();ctx.arc((i*83)%W,(i*59)%H,12+(i%5)*7,0,Math.PI*2);ctx.stroke()}ctx.globalAlpha=1}
+ else if(id==="shaper"||id==="copycat"){ctx.fillStyle=id==="copycat"?"#11101a":"#0d0a16";ctx.fillRect(0,0,W,H);ctx.strokeStyle=f.accent;ctx.globalAlpha=.25;for(let i=0;i<18;i++){ctx.beginPath();ctx.arc((i*83)%W,(i*59)%H,12+(i%5)*7,0,Math.PI*2);ctx.stroke()}ctx.globalAlpha=1}
+ else if(id==="king"){ctx.fillStyle="#190407";ctx.fillRect(0,0,W,H);ctx.strokeStyle="#6d1822";ctx.lineWidth=3;for(let i=0;i<10;i++){ctx.beginPath();ctx.moveTo(i*W/9,0);ctx.lineTo(W-i*W/11,H);ctx.stroke()}}
+ else if(id==="ice"){let g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,"#dff8ff");g.addColorStop(1,"#102a36");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.strokeStyle="#b7efff";for(let i=0;i<20;i++){ctx.beginPath();ctx.moveTo((i*67)%W,0);ctx.lineTo((i*97)%W,H);ctx.stroke()}}
  else{ctx.fillStyle=id==="switcher"?"#171407":"#17080b";ctx.fillRect(0,0,W,H);ctx.strokeStyle=f.accent;ctx.globalAlpha=.25;for(let i=0;i<W;i+=65){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i+80,H);ctx.stroke()}ctx.globalAlpha=1}
  ctx.fillStyle="#111";ctx.fillRect(0,ground()+2,W,4)
 }
