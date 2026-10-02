@@ -122,7 +122,7 @@ function techniqueColor(move,id=cur().id){
   UZUMAKI:"#5c4778",GRAVITY:"#4f536d","CURSE SWARM":"#382f47","SPIRIT BLAST":"#5d4e73",RESONANCE:"#e6a7b6",
   "NAIL SHOT":"#bfc3cc",STOP:"#d8dce6","BLAST AWAY":"#a9c2ff","SPLIT STRIKE":"#76d7b5","AIR STEP":"#b8fff0",
   "DRAW CUT":"#79a7ff","EVENING MOON":"#bfd2ff",HORN:"#d3925b",DRAGON:"#ef9f55","STEP":"#ffbd6b","PRAYER SONG":"#ffe6a8",
-  COPY:"#d9d9ff","RING CALL":"#c8b9ff",BEAM:"#e5dcff","TRANSFIGURE":"#8e7cff","SOUL BURST":"#b298ff",
+  COPY:"#8fd6ff","RING CALL":"#ffd36b",BEAM:"#f4f7ff","TRANSFIGURE":"#8e7cff","SOUL BURST":"#b298ff",
   GAVEL:"#c79b4b",CONFISCATION:"#e7c978",DOORS:"#55ff9f","JACKPOT RUSH":"#7dffbc",BOOGIE:"#f3d75c","FAKE CLAP":"#fff2a6",
   CHAIN:"#8aa0a6",RUSH:"#d8e1e5"
  };
@@ -146,21 +146,21 @@ function resolveTechnique(id,move){
  else if(id==="killer"){hitEnemy(move==="RUSH"?22:18,move==="RUSH"?760:600,230);burst(e.x,e.y-45,24,"steel",3)}
  else if(id==="thunder"){hitEnemy(move==="BOLT"?22:16,610,340);burst(e.x,e.y-65,46,"lightning",3)}
  else if(id==="shaper"){hitEnemy(move==="SOUL BURST"?24:17,570,270);burst(e.x,e.y-55,42,"soul",3)}
- else if(id==="copycat"){hitEnemy(move==="BEAM"?26:move==="RING CALL"?20:16,move==="BEAM"?820:520,360);burst(e.x,e.y-55,move==="BEAM"?60:34,"hollow",3)}
+ else if(id==="copycat"){hitEnemy(move==="BEAM"?26:move==="RING CALL"?20:16,move==="BEAM"?820:520,360);burst(e.x,e.y-55,move==="BEAM"?60:34,"techColor",3,techniqueColor(move,id))}
  else if(id==="heavenly"){hitEnemy(move==="SPLIT STRIKE"?22:17,move==="SPLIT STRIKE"?760:520,230);burst(e.x,e.y-45,28,"steel",3)}
  else if(id==="swordsman"){hitEnemy(move==="DRAW CUT"?21:17,690,250);burst(e.x,e.y-50,32,"blue",3)}
  else if(id==="medium"){hitEnemy(move==="DRAGON"?22:17,610,290);burst(e.x,e.y-55,34,"gold",3)}
  else if(id==="king"){const dmg=move==="DIVINE FLAME"?30:move==="CLEAVE"?23:18;hitEnemy(dmg,move==="DIVINE FLAME"?900:700,move==="DISMANTLE"?360:180);burst(e.x,e.y-55,move==="DIVINE FLAME"?70:38,move==="DIVINE FLAME"?"red":"slash",4)}
- else if(id==="ice"){hitEnemy(move==="ICE FALL"?23:18,520,330);burst(e.x,e.y-55,48,"blue",3)}
- else if(id==="angel"){hitEnemy(move==="JACOB"?26:18,620,360);burst(e.x,e.y-80,56,"gold",3)}
- else if(id==="speaker"){hitEnemy(move==="BLAST AWAY"?23:16,move==="BLAST AWAY"?820:320,420);burst(e.x,e.y-55,34,"steel",3)}
- else if(id==="nail"){hitEnemy(move==="RESONANCE"?24:16,560,310);burst(e.x,e.y-55,38,"blood",3)}
- else if(id==="rhythm"){hitEnemy(move==="PRAYER SONG"?22:16,540,290);burst(p.x,p.y-55,42,"gold",3)}
- else if(id==="miguel"){hitEnemy(move==="ROPE SNARE"?18:21,move==="ROPE SNARE"?350:620,300);burst(e.x,e.y-50,34,"gold",3)}
+ else if(id==="ice"){hitEnemy(move==="ICE FALL"?23:18,520,330);burst(e.x,e.y-55,48,"techColor",3,techniqueColor(move,id))}
+ else if(id==="angel"){hitEnemy(move==="JACOB"?26:18,620,360);burst(e.x,e.y-80,56,"techColor",3,techniqueColor(move,id))}
+ else if(id==="speaker"){hitEnemy(move==="BLAST AWAY"?23:16,move==="BLAST AWAY"?820:320,420);burst(e.x,e.y-55,34,"techColor",3,techniqueColor(move,id))}
+ else if(id==="nail"){hitEnemy(move==="RESONANCE"?24:16,560,310);burst(e.x,e.y-55,38,"techColor",3,techniqueColor(move,id))}
+ else if(id==="rhythm"){hitEnemy(move==="PRAYER SONG"?22:16,540,290);burst(p.x,p.y-55,42,"techColor",3,techniqueColor(move,id))}
+ else if(id==="miguel"){hitEnemy(move==="ROPE SNARE"?18:21,move==="ROPE SNARE"?350:620,300);burst(e.x,e.y-50,34,"techColor",3,techniqueColor(move,id))}
  else if(id==="ken"){const dmg=move==="UZUMAKI"?29:move==="GRAVITY"?22:17;hitEnemy(dmg,move==="GRAVITY"?220:move==="UZUMAKI"?850:480,360);burst(e.x,e.y-55,move==="UZUMAKI"?70:40,move==="GRAVITY"?"shadow":"soul",4)}
- else if(id==="takaba"){const dmg=move==="GAG IMPACT"?23:move==="SCENE CHANGE"?20:16;hitEnemy(dmg,move==="SCENE CHANGE"?300:620,330);burst(e.x,e.y-50,44,"gold",3)}
- else if(id==="geto"){const dmg=move==="UZUMAKI"?28:move==="SPIRIT BLAST"?22:17;hitEnemy(dmg,move==="UZUMAKI"?840:560,350);burst(e.x,e.y-55,move==="UZUMAKI"?68:38,"shadow",4)}
- else if(id==="larue"){if(move==="HEART CATCH"){const ox=e.x;e.x=p.x+p.face*95;e.vx=(p.x-ox)*.2;burst(e.x,e.y-50,36,"blood",3)}else{hitEnemy(22,650,240);burst(e.x,e.y-50,34,"blood",3)}}
+ else if(id==="takaba"){const dmg=move==="GAG IMPACT"?23:move==="SCENE CHANGE"?20:16;hitEnemy(dmg,move==="SCENE CHANGE"?300:620,330);burst(e.x,e.y-50,44,"techColor",3,techniqueColor(move,id))}
+ else if(id==="geto"){const dmg=move==="UZUMAKI"?28:move==="SPIRIT BLAST"?22:17;hitEnemy(dmg,move==="UZUMAKI"?840:560,350);burst(e.x,e.y-55,move==="UZUMAKI"?68:38,"techColor",4,techniqueColor(move,id))}
+ else if(id==="larue"){if(move==="HEART CATCH"){const ox=e.x;e.x=p.x+p.face*95;e.vx=(p.x-ox)*.2;burst(e.x,e.y-50,36,"techColor",3,techniqueColor(move,id))}else{hitEnemy(22,650,240);burst(e.x,e.y-50,34,"techColor",3,techniqueColor(move,id))}}
  else if(id==="sukuna"||id==="meguna"||id==="heian"){const dmg=move==="WORLD CUT"?34:move==="DIVINE FLAME"?31:move==="CLEAVE"?24:move==="TEN SHADOWS"?23:19;hitEnemy(dmg,move==="WORLD CUT"?980:move==="DIVINE FLAME"?900:720,move==="DISMANTLE"?390:220);burst(e.x,e.y-55,move==="WORLD CUT"?80:move==="DIVINE FLAME"?70:42,move==="DIVINE FLAME"?"red":move==="TEN SHADOWS"?"shadow":"slash",4)}
 }
 function nextTechnique(){if(!p.awakened)return;techIndex=(techIndex+1)%cur().techs.length;toast(cur().techs[techIndex])}
@@ -301,15 +301,56 @@ function fighter(o){const f=cur(),id=f.id,z=pose(o),d=o.face;ctx.save();ctx.tran
  if(o.blockBlend>.1){ctx.strokeStyle=f.accent;ctx.globalAlpha=.3+.2*o.blockBlend;ctx.lineWidth=2+o.blockBlend*2;ctx.beginPath();ctx.arc(d*25,-50,31,-1.15,1.15);ctx.stroke();ctx.globalAlpha=1}
  if(o.techAnim>0)drawTechCharge(id,z,d,1-o.techAnim/o.techMax);
  ctx.restore()}
-function drawTechCharge(id,z,d,t){const move=cur().techs[techIndex];const s=easeOut(t),tc=techniqueColor(move,id);ctx.globalAlpha=clamp(t*2);ctx.strokeStyle=tc;ctx.fillStyle=tc;ctx.lineWidth=3;
- if(id==="honored"){ctx.beginPath();ctx.arc(d*(40+18*s),-49,8+25*s,0,Math.PI*2);ctx.stroke()}
- else if(id==="shadow"){ctx.globalAlpha=.55;ctx.beginPath();ctx.ellipse(0,2,28+70*s,8+18*s,0,0,Math.PI*2);ctx.fill()}
- else if(id==="switcher"){ctx.beginPath();ctx.arc(0,-50,30+12*Math.sin(t*18),0,Math.PI*2);ctx.stroke()}
- else if(id==="blood"){ctx.beginPath();ctx.arc(d*(36+15*s),-48,6+18*s,0,Math.PI*2);ctx.fill()}
- else if(id==="thunder"){for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(-20+i*12,-65);ctx.lineTo(10+i*6,-25);ctx.stroke()}}
- else if(id==="judge"){ctx.strokeRect(d*18,-66,30*s,24*s)}
- else{ctx.beginPath();ctx.arc(d*(35+18*s),-48,8+20*s,0,Math.PI*2);ctx.stroke()}
- ctx.globalAlpha=1}
+function drawTechCharge(id,z,d,t){
+ const move=cur().techs[techIndex],tc=techniqueColor(move,id),s=easeOut(t),pulse=.7+.3*Math.sin(time*22);
+ ctx.save();ctx.globalAlpha=clamp(t*2);ctx.strokeStyle=tc;ctx.fillStyle=tc;ctx.lineWidth=2.5;
+
+ const slashMoves=["DISMANTLE","CLEAVE","WORLD CUT","DRAW CUT","EVENING MOON","SPLIT STRIKE","NAIL SHOT"];
+ const beamMoves=["BLUE","RED","HOLLOW","BEAM","PIERCING BLOOD","TRUMPET LIGHT","JACOB","SPIRIT BLAST"];
+ const summonMoves=["DIVINE DOGS","NUE","RABBIT ESCAPE","TEN SHADOWS","CURSE SWARM","RING CALL","HORN","DRAGON"];
+ const rushMoves=["RUSH","JACKPOT RUSH","RHYTHM STEP","AIR STEP","STEP","BOOGIE"];
+ const burstMoves=["SUPER NOVA","SOUL BURST","UZUMAKI","GRAVITY","GAG IMPACT","CRUSH","DIVINE FLAME"];
+
+ if(move==="HOLLOW"){
+   ctx.globalAlpha=.9;
+   ctx.beginPath();ctx.arc(d*(42+24*s),-50,10+22*s,0,Math.PI*2);ctx.stroke();
+   ctx.globalAlpha=.32;ctx.beginPath();ctx.arc(d*(42+24*s),-50,20+34*s,0,Math.PI*2);ctx.fill();
+ }else if(move==="BLUE"){
+   for(let i=0;i<3;i++){ctx.globalAlpha=.65-i*.14;ctx.beginPath();ctx.arc(d*(40+15*s),-50,8+s*(12+i*7),0,Math.PI*2);ctx.stroke()}
+ }else if(move==="RED"){
+   ctx.globalAlpha=.75;ctx.beginPath();ctx.arc(d*(42+18*s),-49,8+18*s*pulse,0,Math.PI*2);ctx.fill();
+   ctx.globalAlpha=.32;ctx.beginPath();ctx.arc(d*(42+18*s),-49,20+28*s,0,Math.PI*2);ctx.stroke();
+ }else if(slashMoves.includes(move)){
+   ctx.globalAlpha=.8;
+   for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(d*(10+i*8),-68+i*13);ctx.lineTo(d*(55+34*s+i*10),-38+i*7);ctx.stroke()}
+ }else if(beamMoves.includes(move)){
+   ctx.globalAlpha=.7;
+   ctx.beginPath();ctx.arc(d*(40+15*s),-50,6+10*s,0,Math.PI*2);ctx.fill();
+   ctx.globalAlpha=.35;
+   for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(d*20,-62+i*8);ctx.lineTo(d*(60+45*s),-62+i*8);ctx.stroke()}
+ }else if(summonMoves.includes(move)){
+   ctx.globalAlpha=.42;ctx.beginPath();ctx.ellipse(0,1,26+64*s,7+13*s,0,0,Math.PI*2);ctx.fill();
+   ctx.globalAlpha=.8;
+   for(let i=0;i<5;i++){ctx.beginPath();ctx.arc((i-2)*12,-12-Math.sin(time*5+i)*6,3+i%2*2,0,Math.PI*2);ctx.stroke()}
+ }else if(rushMoves.includes(move)){
+   ctx.globalAlpha=.65;
+   for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(-d*(8+i*8),-70+i*10);ctx.lineTo(-d*(42+36*s+i*7),-70+i*10);ctx.stroke()}
+ }else if(burstMoves.includes(move)){
+   ctx.globalAlpha=.5;
+   for(let i=0;i<8;i++){const a=i*Math.PI/4+time*2;ctx.beginPath();ctx.moveTo(d*26,-48);ctx.lineTo(d*26+Math.cos(a)*(18+35*s),-48+Math.sin(a)*(18+35*s));ctx.stroke()}
+   ctx.globalAlpha=.7;ctx.beginPath();ctx.arc(d*26,-48,7+12*s*pulse,0,Math.PI*2);ctx.fill();
+ }else if(move==="ROPE SNARE"||move==="HEART CATCH"){
+   ctx.globalAlpha=.7;
+   ctx.beginPath();ctx.moveTo(d*10,-45);ctx.bezierCurveTo(d*25,-72,d*52,-18,d*(70+25*s),-50);ctx.stroke();
+   ctx.beginPath();ctx.moveTo(d*12,-38);ctx.bezierCurveTo(d*30,-12,d*55,-78,d*(72+22*s),-42);ctx.stroke();
+ }else if(move==="STOP"||move==="BLAST AWAY"||move==="CONFISCATION"||move==="GAVEL"){
+   ctx.globalAlpha=.7;ctx.strokeRect(d*18,-67,d*(28+24*s),26+8*s);
+ }else{
+   ctx.globalAlpha=.65;
+   for(let i=0;i<5;i++){ctx.beginPath();ctx.arc(d*(34+15*s),-48,7+i*5+s*5,0,Math.PI*2);ctx.stroke()}
+ }
+ ctx.restore();
+}
 function dummy(o){ctx.save();ctx.translate(o.x,o.y);ctx.lineCap="round";ctx.strokeStyle=o.hit>0?"#555":"#171717";ctx.lineWidth=7;const recoil=o.hit>0?Math.sin(o.hit*30)*14:0;ctx.rotate(recoil*.013);ctx.beginPath();ctx.arc(0,-82,18,0,Math.PI*2);ctx.moveTo(0,-64);ctx.lineTo(recoil,-20);ctx.moveTo(recoil,-20);ctx.lineTo(-19,0);ctx.moveTo(recoil,-20);ctx.lineTo(22,0);ctx.moveTo(0,-54);ctx.lineTo(-24,-34);ctx.moveTo(0,-54);ctx.lineTo(24,-34);ctx.stroke();ctx.restore()}
 
 function drawStage(){
