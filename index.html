@@ -10,17 +10,9 @@
 <body>
 <div id="game">
 <header>
-  <div class="fighter">
-    <b>PLAYER</b>
-    <div class="hp"><i id="pHP"></i></div>
-    <span id="charName">VESSEL</span>
-  </div>
-  <div id="title">STICK <em>KAISEN</em><small id="modeLabel">TRAINING</small></div>
-  <div class="fighter right">
-    <b>CPU</b>
-    <div class="hp"><i id="eHP"></i></div>
-    <span>TRAINING CURSE</span>
-  </div>
+  <div class="fighter"><b>PLAYER</b><div class="hp"><i id="pHP"></i></div><span id="charName">VESSEL</span></div>
+  <div id="title">STICK <em>KAISEN</em><small id="modeLabel">MENU</small></div>
+  <div class="fighter right"><b>CPU</b><div class="hp"><i id="eHP"></i></div><span>TRAINING CURSE</span></div>
 </header>
 
 <main>
@@ -31,21 +23,13 @@
 </main>
 
 <footer>
-  <div class="meter">
-    <label>CURSED ENERGY <span id="ceText">100</span></label>
-    <div><i id="ce"></i></div>
-  </div>
-  <div class="meter awakening">
-    <label>AWAKENING <span id="awText">0%</span></label>
-    <div><i id="aw"></i></div>
-  </div>
+  <div class="meter"><label>CURSED ENERGY <span id="ceText">100</span></label><div><i id="ce"></i></div></div>
+  <div class="meter awakening"><label>AWAKENING <span id="awText">0%</span></label><div><i id="aw"></i></div></div>
 </footer>
 
 <div id="mobile">
   <div class="move">
-    <button data-hold="left">◀</button>
-    <button data-action="jump">▲</button>
-    <button data-hold="right">▶</button>
+    <button data-hold="left">◀</button><button data-action="jump">▲</button><button data-hold="right">▶</button>
   </div>
   <div class="actions">
     <button data-action="block">BLOCK</button>
@@ -53,12 +37,67 @@
     <button class="attack" data-action="attack">M1</button>
     <button class="tech locked" id="techBtn" data-action="tech">CT LOCKED</button>
     <button class="swap" id="techSwapBtn" data-action="techswap">CT 1</button>
+    <button class="custom" id="customBtn" data-action="custom">CUSTOM</button>
+    <button class="evolve" id="evolveBtn" data-action="evolve">EVOLVE</button>
     <button class="domain" id="domainBtn" data-action="domain">DOMAIN</button>
-    <button class="char" id="charBtn" data-action="char">CHAR</button>
+    <button class="menuBtn" data-action="menu">MENU</button>
   </div>
 </div>
 
-<div id="hint">A/D MOVE · W JUMP · J M1 · K TECH · I NEXT CT · U DOMAIN · SHIFT DASH · L BLOCK · C CHARACTER</div>
+<div id="hint">A/D MOVE · W/SPACE JUMP · J M1 · K TECH · I NEXT CT · R CUSTOM · E EVOLVE · U DOMAIN · SHIFT DASH · L BLOCK · ESC MENU</div>
+
+<div id="mainMenu" class="overlay show">
+  <div class="menuBg"></div>
+  <section class="menuCard homeScreen active" data-screen="home">
+    <div class="brand"><span>STICK</span><em>KAISEN</em></div>
+    <p class="tag">CURSED COMBAT // ORIGINAL STICK FIGHTERS</p>
+    <nav class="mainNav">
+      <button data-menu="play">PLAY</button>
+      <button data-menu="sandbox">SANDBOX</button>
+      <button data-menu="custom">CUSTOM TECHNIQUE</button>
+      <button data-menu="controls">DESKTOP CONTROLS</button>
+    </nav>
+    <small>Choose a fighter, build a technique, or test everything in sandbox.</small>
+  </section>
+
+  <section class="menuCard selectScreen" data-screen="select">
+    <div class="screenHead"><button data-menu="home">← BACK</button><div><b>CHOOSE YOUR FIGHTER</b><small id="selectMode">BATTLE</small></div></div>
+    <div id="characterGrid" class="characterGrid"></div>
+    <div class="selectedBar"><div><span id="selectedName">VESSEL</span><small id="selectedTechs"></small></div><button id="startFight">START</button></div>
+  </section>
+
+  <section class="menuCard customScreen" data-screen="custom">
+    <div class="screenHead"><button data-menu="home">← BACK</button><div><b>CUSTOM TECHNIQUE LAB</b><small>Build it, save it, then press R / CUSTOM in battle.</small></div></div>
+    <div class="builder">
+      <label>NAME<input id="ctName" maxlength="22" value="CURSED BLAST"></label>
+      <label>EFFECT<select id="ctEffect"><option value="blast">Blast</option><option value="slash">Slash</option><option value="beam">Beam</option><option value="rush">Rush</option><option value="teleport">Teleport Hit</option><option value="trap">Trap</option></select></label>
+      <label>DAMAGE<input id="ctDamage" type="range" min="5" max="35" value="18"><output id="ctDamageOut">18</output></label>
+      <label>CE COST<input id="ctCost" type="range" min="0" max="60" value="25"><output id="ctCostOut">25</output></label>
+      <label>RANGE<input id="ctRange" type="range" min="90" max="500" value="260"><output id="ctRangeOut">260</output></label>
+      <label>USE CONDITION<select id="ctUse"><option value="any">Any time</option><option value="ground">Ground only</option><option value="air">Air only</option><option value="dash">After dash</option><option value="awakened">Awakened only</option><option value="domain">Domain only</option></select></label>
+      <label>COLOR<input id="ctColor" type="color" value="#8f6cff"></label>
+    </div>
+    <div class="builderActions"><button id="saveCustom">SAVE TECHNIQUE</button><span id="customSaved">No custom technique saved yet.</span></div>
+  </section>
+
+  <section class="menuCard controlsScreen" data-screen="controls">
+    <div class="screenHead"><button data-menu="home">← BACK</button><div><b>DESKTOP CONTROLS</b><small>Keyboard layout</small></div></div>
+    <div class="controlsGrid">
+      <kbd>A / D</kbd><span>Move</span><kbd>W / SPACE</kbd><span>Jump</span><kbd>J</kbd><span>M1 combo</span><kbd>K</kbd><span>Technique</span>
+      <kbd>I</kbd><span>Next technique</span><kbd>R</kbd><span>Custom technique</span><kbd>E</kbd><span>Sukuna evolution</span><kbd>U</kbd><span>Domain</span>
+      <kbd>SHIFT</kbd><span>Dash</span><kbd>L</kbd><span>Block</span><kbd>ESC</kbd><span>Pause / menu</span>
+    </div>
+  </section>
+</div>
+
+<div id="sandboxPanel">
+  <b>SANDBOX</b>
+  <label><input id="sbHp" type="checkbox" checked> Infinite HP</label>
+  <label><input id="sbCe" type="checkbox" checked> Infinite CE</label>
+  <label><input id="sbAw" type="checkbox" checked> Infinite AWK</label>
+  <label><input id="sbSlow" type="checkbox"> Slow motion</label>
+  <button id="sbReset">RESET</button>
+</div>
 </div>
 <script src="game.js"></script>
 </body>
