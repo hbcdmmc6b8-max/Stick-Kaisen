@@ -160,3 +160,13 @@ body.menu-open #mobile{pointer-events:none}
  .battleSetup label:last-child{grid-column:1/3}
  .actions .customDomain{width:48px;height:39px;border-radius:14px;font-size:6px}
 }
+
+/* ===== SETTINGS / MATCH END ===== */
+.settingsScreen{flex-direction:column}
+.matchEnd{position:absolute;inset:0;z-index:70;display:none;place-items:center;align-content:center;gap:14px;background:#050609d9;backdrop-filter:blur(8px);text-align:center}
+.matchEnd.show{display:grid}
+.matchEnd strong{font:italic 900 clamp(48px,10vw,120px) Arial Black;letter-spacing:.05em}
+.matchEnd span{font:800 11px monospace;letter-spacing:.18em;color:#aeb4bf}
+.matchEnd div{display:flex;gap:10px}
+.matchEnd button{border:1px solid #ffffff28;background:#141821;color:#fff;border-radius:12px;padding:13px 20px;font:900 10px Arial Black;letter-spacing:.12em}
+.matchEnd button:first-child{border-color:#ed2438;background:#211016}
