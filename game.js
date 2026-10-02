@@ -213,12 +213,6 @@ function awaken(){if(p.aw<100||p.awakened)return;p.awakened=true;shake=18;burst(
 function technique(){if(!p.awakened){if(p.aw>=100||cur().id==="modulo"){p.aw=100;awaken()}return}const f=cur();const move=f.techs[techIndex%f.techs.length];const costs={HOLLOW:45,"JACKPOT RUSH":35,"SUPER NOVA":35,"PIERCING BLOOD":30};const cost=f.id==="modulo"?0:(costs[move]||25);if(p.ce<cost||p.attack>0||p.techAnim>0||p.domainAnim>0||p.block)return;p.ce-=cost;p.techMax=move==="HOLLOW"?1.2:.82;p.techAnim=p.techMax;toast(move);
  setTimeout(()=>{if(p.techAnim<=0)return;burst(p.x+p.face*36,p.y-50,18,"techColor",3,techniqueColor(move,f.id));resolveTechnique(f.id,move)},Math.round(p.techMax*430))}
 function resolveTechnique(id,move){
- if(id==="yuka"){ctx.strokeStyle="#6179ff";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-14,-46);ctx.lineTo(14,-32);ctx.stroke()}
- if(id==="tsurugi"){ctx.strokeStyle="#d8dde8";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-d*16,-34);ctx.lineTo(-d*42,-5);ctx.stroke()}
- if(id==="maru"||id==="cross"){ctx.strokeStyle=id==="maru"?"#70e6d1":"#5cd0e8";ctx.lineWidth=3;ctx.beginPath();ctx.arc(z.bodyX,z.headY-9,5,0,Math.PI*2);ctx.stroke()}
- if(id==="dabura"){ctx.strokeStyle="#ffe36f";ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-48,18,0,Math.PI*2);ctx.stroke()}
- if(id==="usami"){ctx.strokeStyle="#9dc8ff";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-15,-50);ctx.lineTo(15,-30);ctx.stroke()}
- if(id==="kyoko"){ctx.strokeStyle="#e690ff";ctx.lineWidth=2;for(let i=-1;i<=1;i++){ctx.beginPath();ctx.moveTo(i*8,-52);ctx.lineTo(i*13,-22);ctx.stroke()}}
  if(id==="modulo"){
    const mega=1000000;
    if(move==="BLACK FLASH"){
@@ -431,6 +425,14 @@ function outfitExtras(id,z,d){
  if(id==="takaba"){ctx.fillStyle="#ffdd4d";ctx.beginPath();ctx.arc(-12,-42,4,0,Math.PI*2);ctx.fill()}
  if(id==="geto"){ctx.strokeStyle="#2d3038";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-18,-51);ctx.lineTo(-25,-28);ctx.moveTo(18,-51);ctx.lineTo(25,-28);ctx.stroke()}
  if(id==="larue"){ctx.strokeStyle="#f0b0d8";ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-46,14,0,Math.PI);ctx.stroke()}
+ if(id==="yuka"){ctx.strokeStyle="#6179ff";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-14,-46);ctx.lineTo(14,-32);ctx.stroke()}
+ if(id==="tsurugi"){ctx.strokeStyle="#d8dde8";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-d*16,-34);ctx.lineTo(-d*42,-5);ctx.stroke()}
+ if(id==="maru"||id==="cross"){ctx.strokeStyle=id==="maru"?"#70e6d1":"#5cd0e8";ctx.lineWidth=3;ctx.beginPath();ctx.arc(z.bodyX,z.headY-9,5,0,Math.PI*2);ctx.stroke()}
+ if(id==="dabura"){ctx.strokeStyle="#ffe36f";ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-48,18,0,Math.PI*2);ctx.stroke()}
+ if(id==="usami"){ctx.strokeStyle="#9dc8ff";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-15,-50);ctx.lineTo(15,-30);ctx.stroke()}
+ if(id==="jabaloma"){ctx.strokeStyle="#ff9f68";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-17,-44);ctx.lineTo(17,-44);ctx.stroke()}
+ if(id==="kyoko"){ctx.strokeStyle="#e690ff";ctx.lineWidth=2;for(let i=-1;i<=1;i++){ctx.beginPath();ctx.moveTo(i*8,-52);ctx.lineTo(i*13,-22);ctx.stroke()}}
+ if(id==="dapa"||id==="osuki"){ctx.strokeStyle=id==="dapa"?"#7ef0a5":"#ffb86a";ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-45,15,0,Math.PI*2);ctx.stroke()}
  if(id==="modulo"){
    ctx.strokeStyle="#b1182b";ctx.lineWidth=10;ctx.beginPath();ctx.arc(z.bodyX,z.headY+2,25,Math.PI*1.02,Math.PI*1.98);ctx.stroke();
    ctx.strokeStyle="#22242b";ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(z.bodyX-18,z.headY+13);ctx.lineTo(z.bodyX-14,-42);ctx.moveTo(z.bodyX+18,z.headY+13);ctx.lineTo(z.bodyX+14,-42);ctx.stroke();
