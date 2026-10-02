@@ -170,3 +170,17 @@ body.menu-open #mobile{pointer-events:none}
 .matchEnd div{display:flex;gap:10px}
 .matchEnd button{border:1px solid #ffffff28;background:#141821;color:#fff;border-radius:12px;padding:13px 20px;font:900 10px Arial Black;letter-spacing:.12em}
 .matchEnd button:first-child{border-color:#ed2438;background:#211016}
+
+/* ===== FINAL BIG SYSTEMS: PREVIEW / ADVANCED SANDBOX ===== */
+.selectBody{min-height:0;flex:1;display:grid;grid-template-columns:minmax(0,1fr) 260px;overflow:hidden}
+.selectBody .characterGrid{min-height:0}
+.fighterPreview{display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:6px;align-items:end;padding:14px;border-left:1px solid #ffffff14;background:radial-gradient(circle at 50% 35%,#202633,#090b10 70%)}
+.fighterPreview canvas{width:100%;height:100%;min-height:220px;display:block}
+.fighterPreview b{font-size:15px;letter-spacing:.08em}
+.fighterPreview small{font:800 8px monospace;letter-spacing:.12em;color:#9299a6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#sandboxPanel label:has(#sbDummyCount),#sandboxPanel label:has(#sbDummyHp){padding-top:3px}
+@media(max-width:760px){
+ .selectBody{grid-template-columns:1fr}
+ .fighterPreview{display:none}
+ .battleSetup{position:sticky;bottom:0;z-index:2}
+}
