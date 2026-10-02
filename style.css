@@ -5,3 +5,14 @@
 .actions .tech.locked{opacity:.55;border-style:dashed;color:#8c8c96}
 .actions .tech.ready{border-color:#ff4058;color:#fff;box-shadow:0 0 18px #ed243866}
 .actions .tech.active{border-color:#8f6cff;color:#fff;box-shadow:0 0 18px #7450ff88}
+
+#cinema{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;opacity:0;text-align:center;text-shadow:0 3px 16px #000;z-index:5}
+#cinema.show{opacity:1}
+#cinema b{font:900 clamp(12px,2.3vw,26px) Arial Black;letter-spacing:.42em}
+#cinema strong{display:block;margin-top:8px;font:italic 900 clamp(22px,5vw,56px) Arial Black;letter-spacing:.08em}
+.actions{flex-wrap:wrap;max-width:310px;justify-content:flex-end}
+.actions .domain{border-color:#ed2438;color:#ffb7c0}
+.actions .domain.ready{box-shadow:0 0 20px #ed243899;background:#241016d9}
+.actions .domain.active{border-color:#fff;color:#fff;background:#421220d9}
+.actions .char{border-color:#55c9ff;color:#bdeeff}
+@media(orientation:portrait) and (max-width:800px){.actions{width:150px;grid-template-columns:1fr 1fr}.actions .domain,.actions .char{width:50px;height:42px;border-radius:16px;font-size:8px}}
