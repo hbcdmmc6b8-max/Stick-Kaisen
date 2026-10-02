@@ -181,15 +181,35 @@ function physics(o,dt){const was=o.on;o.vy+=1500*dt;o.x+=o.vx*dt;o.y+=o.vy*dt;o.
 function limb(ax,ay,bx,by,cx,cy,w=7,col="#101114"){ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.lineTo(cx,cy);ctx.strokeStyle=col;ctx.lineWidth=w;ctx.stroke()}
 function pose(o){const d=o.face,run=Math.min(1,Math.abs(o.vx)/260),phase=q30(time)*13,step=Math.sin(phase)*run;let z={bodyX:0,bodyY:-56,headY:-86,la:[-d*15,-44,-d*26,-27],ra:[d*15,-44,d*27,-28],ll:[-12,-19,-19,0],rl:[12,-19,20,0],rot:0};
  if(run>.08&&o.on&&o.attack<=0&&o.techAnim<=0&&o.domainAnim<=0){const bounce=Math.abs(Math.sin(phase)),id=cur().id;
-   const gait=id==="judge"||id==="swordsman"?.72:id==="gambler"||id==="switcher"?1.2:id==="killer"||id==="heavenly"?1.35:id==="honored"?0.82:1;
-   const stride=25*gait,arm=19*gait,lean=id==="killer"||id==="heavenly"?.045:id==="honored"?-.008:.018;
-   z.bodyX=d*(3+2*Math.sin(phase*2))*gait;z.bodyY=-56+bounce*(id==="gambler"?5:id==="judge"?1.5:3);z.headY=-86+bounce*2;
+   const slow=["judge","swordsman","geto","ken"].includes(id),fast=["killer","heavenly","thunder","miguel"].includes(id),swagger=["gambler","switcher","takaba","larue"].includes(id);
+   const gait=slow?.72:swagger?1.18:fast?1.35:id==="honored"?.82:1;
+   const stride=25*gait,arm=19*gait,lean=fast?.05:id==="honored"?-.008:swagger?.032:.018;
+   z.bodyX=d*(3+2*Math.sin(phase*2))*gait;z.bodyY=-56+bounce*(swagger?4.5:slow?1.7:3);z.headY=-86+bounce*(fast?2.8:2);
    z.ll=[-d*step*14,-17,d*step*stride,0];z.rl=[d*step*14,-17,-d*step*stride,0];
    z.la=[-d*15,-45,d*step*arm,-28];z.ra=[d*15,-45,-d*step*arm,-28];z.rot=d*Math.sin(phase)*lean;
    if(id==="honored"){z.la=[-d*10,-44,-d*15,-25];z.ra=[d*10,-44,d*15,-25]}
-   if(id==="judge"){z.la=[-d*10,-44,-d*18,-29];z.ra=[d*10,-44,d*15,-30]}
-   if(id==="gambler"){z.bodyX+=d*3;z.rot+=d*.03}
-   if(id==="king"){z.bodyY-=2;z.headY-=2}
+   if(id==="judge"||id==="ken"){z.la=[-d*10,-44,-d*18,-29];z.ra=[d*10,-44,d*15,-30]}
+   if(id==="gambler"||id==="takaba"){z.bodyX+=d*3;z.rot+=d*.03}
+   if(id==="sukuna"||id==="meguna"||id==="heian"||id==="king"){z.bodyY-=2;z.headY-=2}
+   if(id==="miguel"){z.rot+=d*Math.sin(phase*.5)*.025;z.la=[-d*14,-44,d*step*24,-29];z.ra=[d*14,-44,-d*step*24,-29]}
+   if(id==="larue"){z.la=[-d*12,-45,d*step*12,-24];z.ra=[d*12,-45,-d*step*12,-31]}
+ }
+ if(run<=.08&&o.on&&o.attack<=0&&o.techAnim<=0&&o.domainAnim<=0&&o.blockBlend<.05&&o.dash<=0){
+   const id=cur().id,b=Math.sin(q30(time)*2.6),b2=Math.sin(q30(time)*1.3);
+   z.bodyY=-56+b*1.4;z.headY=-86+b*1.1;z.rot=d*b2*.008;
+   if(id==="honored"){z.la=[-d*9,-45,-d*15,-22];z.ra=[d*9,-45,d*15,-22];z.rot=-d*.012}
+   else if(id==="judge"){z.la=[-d*10,-45,-d*18,-29];z.ra=[d*10,-45,d*18,-29];z.rot=0}
+   else if(id==="gambler"){z.bodyX=d*4;z.la=[-d*10,-44,-d*21,-25];z.ra=[d*10,-44,d*21,-25];z.rot=d*.025}
+   else if(id==="switcher"){z.la=[-d*12,-45,-d*4,-27];z.ra=[d*12,-45,d*4,-27]}
+   else if(id==="blood"){z.la=[-d*11,-45,-d*21,-34];z.ra=[d*11,-45,d*22,-35]}
+   else if(id==="killer"||id==="heavenly"){z.bodyX=d*5;z.rot=d*.035;z.la=[-d*13,-45,-d*25,-31];z.ra=[d*13,-45,d*18,-28]}
+   else if(id==="thunder"){z.la=[-d*12,-45,-d*22,-26];z.ra=[d*12,-45,d*28,-37];z.rot=d*.02}
+   else if(id==="copycat"){z.la=[-d*11,-45,-d*18,-28];z.ra=[d*11,-45,d*28,-39]}
+   else if(id==="miguel"){z.rot=d*b2*.03;z.la=[-d*13,-44,-d*25,-26];z.ra=[d*13,-44,d*23,-33]}
+   else if(id==="takaba"){z.bodyX=d*(3+b2*2);z.rot=d*.04;z.la=[-d*12,-44,-d*29,-24];z.ra=[d*12,-44,d*8,-18]}
+   else if(id==="geto"||id==="ken"){z.la=[-d*10,-45,-d*17,-27];z.ra=[d*10,-45,d*17,-27];z.rot=-d*.01}
+   else if(id==="larue"){z.bodyX=d*2;z.la=[-d*12,-45,-d*28,-35];z.ra=[d*12,-45,d*22,-24]}
+   else if(id==="sukuna"||id==="meguna"||id==="heian"||id==="king"){z.bodyY-=2;z.headY-=2;z.la=[-d*14,-46,-d*25,-32];z.ra=[d*14,-46,d*26,-33];z.rot=d*.012}
  }
  if(!o.on){const rise=clamp(-o.vy/620,-1,1);z.bodyY=-59;z.headY=-90;z.ll=[-13,-23,-27,-5];z.rl=[13,-23,29,-11];z.la=[-d*14,-49,-d*(26+8*rise),-34];z.ra=[d*14,-49,d*(28+7*rise),-38]}
  if(o.land>0){const t=1-o.land/.18,s=Math.sin(t*Math.PI);z.bodyY=-56+10*s;z.headY=-86+8*s;z.ll=[-15,-16,-31,0];z.rl=[15,-16,31,0]}
@@ -200,7 +220,7 @@ function pose(o){const d=o.face,run=Math.min(1,Math.abs(o.vx)/260),phase=q30(tim
  if(o.domainAnim>0){const t=q30(1-o.domainAnim/o.domainMax),s=Math.sin(t*Math.PI*4)*.8;z.bodyY=-58;z.headY=-90;z.la=[-d*8,-49,-6+s*3,-68];z.ra=[d*8,-49,6-s*3,-68];z.ll=[-13,-18,-22,0];z.rl=[13,-18,22,0];z.rot=Math.sin(t*18)*.012}
  return z}
 
-function hair(id,bx,hy){
+function hair(id,bx,hy,o){const sway=Math.sin(q30(time)*3.2)*((Math.abs(o.vx)>20)?2.2:1.1);hy+=sway;
  ctx.strokeStyle="#11131a";ctx.lineWidth=2;
  if(id==="honored"){ctx.fillStyle="#f4fbff";ctx.beginPath();const pts=[[-20,-4],[-27,-20],[-13,-18],[-9,-34],[0,-23],[8,-36],[12,-20],[26,-24],[19,-5]];pts.forEach((p,i)=>i?ctx.lineTo(bx+p[0],hy+p[1]):ctx.moveTo(bx+p[0],hy+p[1]));ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle="#0b0c10";ctx.fillRect(bx-18,hy-4,36,8);return}
  const styles={
@@ -213,8 +233,9 @@ function hair(id,bx,hy){
 }
 function drawFace(id,z,d){
  const bx=z.bodyX,hy=z.headY;
- const blink=(time%3.6)>3.46 || (time%7.9)>7.78;
- const angry=["sukuna","meguna","heian","king","killer","judge"].includes(id);
+ const expressive=o=>o.attack>0||o.techAnim>0||o.domainAnim>0;
+ const blink=!expressive(p)&&((time%3.6)>3.46 || (time%7.9)>7.78);
+ const angry=["sukuna","meguna","heian","king","killer","judge"].includes(id)||p.attack>0;
  const eyeY=hy+1, sep=7;
  ctx.strokeStyle="#11131a";ctx.fillStyle="#11131a";ctx.lineCap="round";
  if(id==="honored"){
@@ -230,7 +251,7 @@ function drawFace(id,z,d){
  ctx.beginPath();
  ctx.moveTo(bx-sep-4,hy-6+(angry?2:0));ctx.lineTo(bx-sep+3,hy-7-(angry?1:0));
  ctx.moveTo(bx+sep-3,hy-7-(angry?1:0));ctx.lineTo(bx+sep+4,hy-6+(angry?2:0));ctx.stroke();
- ctx.strokeStyle="#6b4b43";ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(bx-3,hy+10);ctx.quadraticCurveTo(bx,hy+12+(angry?-2:1),bx+4,hy+10);ctx.stroke();
+ ctx.strokeStyle="#6b4b43";ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(bx-3,hy+10);ctx.quadraticCurveTo(bx,hy+12+(p.techAnim>0?-4:p.attack>0?-2:angry?-1:1),bx+4,hy+10);ctx.stroke();
  if(id==="blood"){ctx.strokeStyle="#7a1d2a";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(bx-13,hy+5);ctx.lineTo(bx+13,hy+5);ctx.stroke()}
  if(id==="sukuna"||id==="meguna"||id==="heian"){
    ctx.fillStyle="#5b1721";
@@ -261,13 +282,21 @@ function outfitExtras(id,z,d){
  if(id==="sukuna"){ctx.strokeStyle="#581b25";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(z.bodyX-15,z.headY+4);ctx.lineTo(z.bodyX+15,z.headY+4);ctx.moveTo(z.bodyX,z.headY-15);ctx.lineTo(z.bodyX,z.headY+15);ctx.stroke()}
  if(id==="meguna"){ctx.strokeStyle="#7a1d2a";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(z.bodyX-15,z.headY+4);ctx.lineTo(z.bodyX+15,z.headY+4);ctx.stroke()}
  if(id==="heian"){ctx.strokeStyle="#6d1621";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(z.bodyX-16,z.headY+3);ctx.lineTo(z.bodyX+16,z.headY+3);ctx.moveTo(z.bodyX-8,z.headY-12);ctx.lineTo(z.bodyX+8,z.headY+13);ctx.stroke();ctx.strokeStyle="#32171a";ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(-16,-48);ctx.lineTo(-28,-34);ctx.moveTo(16,-48);ctx.lineTo(28,-34);ctx.stroke()}
+ if(id==="honored"){ctx.strokeStyle="#202228";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-13,-56);ctx.lineTo(-18,-18);ctx.moveTo(13,-56);ctx.lineTo(18,-18);ctx.stroke()}
+ if(id==="shadow"||id==="meguna"){ctx.fillStyle="#0b0d12";ctx.beginPath();ctx.ellipse(0,2,22,5,0,0,Math.PI*2);ctx.fill()}
+ if(id==="blood"){ctx.strokeStyle="#e7e7e7";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-14,-44);ctx.lineTo(14,-44);ctx.stroke()}
+ if(id==="copycat"){ctx.strokeStyle="#ddd";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-15,-42);ctx.lineTo(15,-42);ctx.stroke()}
+ if(id==="nail"){ctx.strokeStyle="#5a3a32";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-15,-42);ctx.lineTo(15,-42);ctx.stroke()}
+ if(id==="takaba"){ctx.fillStyle="#ffdd4d";ctx.beginPath();ctx.arc(-12,-42,4,0,Math.PI*2);ctx.fill()}
+ if(id==="geto"){ctx.strokeStyle="#2d3038";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-18,-51);ctx.lineTo(-25,-28);ctx.moveTo(18,-51);ctx.lineTo(25,-28);ctx.stroke()}
+ if(id==="larue"){ctx.strokeStyle="#f0b0d8";ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-46,14,0,Math.PI);ctx.stroke()}
 }
 function fighter(o){const f=cur(),id=f.id,z=pose(o),d=o.face;ctx.save();ctx.translate(o.x,o.y);ctx.rotate(z.rot);ctx.lineCap="round";ctx.lineJoin="round";
  if(o.domainActive>0){ctx.strokeStyle=f.accent;ctx.globalAlpha=.22+.1*Math.sin(time*11);ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-56,52+Math.sin(time*7)*6,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
  ctx.strokeStyle=f.body;ctx.lineWidth=id==="honored"?12:9;ctx.beginPath();ctx.moveTo(z.bodyX,z.bodyY);ctx.lineTo(z.bodyX,-20);ctx.stroke();
  outfitExtras(id,z,d);
  limb(z.bodyX,-49,z.la[0]+z.bodyX,z.la[1],z.la[2]+z.bodyX,z.la[3],7,f.body);limb(z.bodyX,-49,z.ra[0]+z.bodyX,z.ra[1],z.ra[2]+z.bodyX,z.ra[3],7,f.body);limb(z.bodyX,-20,z.ll[0]+z.bodyX,z.ll[1],z.ll[2]+z.bodyX,z.ll[3],7,f.body);limb(z.bodyX,-20,z.rl[0]+z.bodyX,z.rl[1],z.rl[2]+z.bodyX,z.rl[3],7,f.body);
- ctx.fillStyle=f.skin;ctx.beginPath();ctx.arc(z.bodyX,z.headY,18,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#101114";ctx.lineWidth=3;ctx.stroke();hair(id,z.bodyX,z.headY);
+ ctx.fillStyle=f.skin;ctx.beginPath();ctx.arc(z.bodyX,z.headY,18,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#101114";ctx.lineWidth=3;ctx.stroke();hair(id,z.bodyX,z.headY,o);
  drawFace(id,z,d);
  if(o.blockBlend>.1){ctx.strokeStyle=f.accent;ctx.globalAlpha=.3+.2*o.blockBlend;ctx.lineWidth=2+o.blockBlend*2;ctx.beginPath();ctx.arc(d*25,-50,31,-1.15,1.15);ctx.stroke();ctx.globalAlpha=1}
  if(o.techAnim>0)drawTechCharge(id,z,d,1-o.techAnim/o.techMax);
