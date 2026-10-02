@@ -65,7 +65,14 @@
 
   <section class="menuCard selectScreen" data-screen="select">
     <div class="screenHead"><button data-menu="home">← BACK</button><div><b>CHOOSE YOUR FIGHTER</b><small id="selectMode">BATTLE</small></div></div>
-    <div id="characterGrid" class="characterGrid"></div>
+    <div class="selectBody">
+      <div id="characterGrid" class="characterGrid"></div>
+      <aside class="fighterPreview">
+        <canvas id="previewCanvas" width="320" height="360"></canvas>
+        <b id="previewName">VESSEL</b>
+        <small id="previewDomain">DOMAIN</small>
+      </aside>
+    </div>
     <div class="battleSetup">
       <label>OPPONENT<select id="opponentSelect"></select></label>
       <label>STAGE<select id="stageSelect"><option value="city">RUINED CITY</option><option value="school">JUJUTSU SCHOOL</option><option value="subway">SUBWAY</option><option value="rooftop">ROOFTOP</option><option value="shrine">SHRINE DISTRICT</option></select></label>
@@ -101,6 +108,8 @@
       <label>CE COST<input id="cdCost" type="range" min="0" max="100" value="80"><output id="cdCostOut">80</output></label>
       <label>DURATION<input id="cdDuration" type="range" min="3" max="20" value="8"><output id="cdDurationOut">8s</output></label>
       <label>BUFF<select id="cdBuff"><option value="damage">Damage boost</option><option value="speed">Speed boost</option><option value="ce">CE regeneration</option><option value="range">Technique range</option></select></label>
+      <label>SURE-HIT<select id="cdSureHit"><option value="none">None</option><option value="pulse">Pulse damage</option><option value="snare">Snare target</option><option value="drain">Drain CE</option></select></label>
+      <label>DOMAIN STYLE<select id="cdStyle"><option value="rings">Rings</option><option value="slashes">Slashes</option><option value="void">Void</option><option value="shrine">Shrine</option></select></label>
     </div>
     <div class="builderActions"><button id="saveCustomDomain">SAVE DOMAIN</button><span id="customDomainSaved">No custom domain saved yet.</span></div>
   </section>
@@ -141,6 +150,8 @@
   <label><input id="sbHitboxes" type="checkbox"> Show hitboxes</label>
   <label><input id="sbDummyBlock" type="checkbox"> Dummy blocks</label>
   <label><input id="sbDummyMove" type="checkbox"> Dummy movement</label>
+  <label><input id="sbStageDamage" type="checkbox" checked> Stage reactions</label>
+  <label>DUMMY COUNT <input id="sbDummyCount" type="range" min="1" max="3" step="1" value="1"><span id="sbDummyCountOut">1</span></label>
   <label>DUMMY HP <input id="sbDummyHp" type="range" min="25" max="500" step="25" value="100"><span id="sbDummyHpOut">100</span></label>
   <button id="sbReset">RESET POSITIONS</button>
   <button id="sbRefill">REFILL EVERYTHING</button>
