@@ -207,7 +207,8 @@ function pose(o){const d=o.face,run=Math.min(1,Math.abs(o.vx)/260),phase=q30(tim
    const gait=slow?.72:swagger?1.18:fast?1.35:id==="honored"?.82:1;
    const stride=25*gait,arm=19*gait,lean=fast?.05:id==="honored"?-.008:swagger?.032:.018;
    z.bodyX=d*(3+2*Math.sin(phase*2))*gait;z.bodyY=-56+bounce*(swagger?4.5:slow?1.7:3);z.headY=-86+bounce*(fast?2.8:2);
-   z.ll=[-d*step*14,-17,d*step*stride,0];z.rl=[d*step*14,-17,-d*step*stride,0];
+   const hip=16,footStride=20*gait,liftL=step>0?-7*Math.abs(step):0,liftR=step<0?-7*Math.abs(step):0;
+   z.ll=[-d*hip,-17,d*step*footStride,liftL];z.rl=[d*hip,-17,-d*step*footStride,liftR];
    z.la=[-d*15,-45,d*step*arm,-28];z.ra=[d*15,-45,-d*step*arm,-28];z.rot=d*Math.sin(phase)*lean;
    if(id==="honored"){z.la=[-d*10,-44,-d*15,-25];z.ra=[d*10,-44,d*15,-25]}
    if(id==="judge"||id==="ken"){z.la=[-d*10,-44,-d*18,-29];z.ra=[d*10,-44,d*15,-30]}
@@ -253,33 +254,6 @@ function hair(id,bx,hy,o){const sway=Math.sin(q30(time)*3.2)*((Math.abs(o.vx)>20
  if(id==="judge"){ctx.fillStyle="#222";ctx.fillRect(bx-18,hy-11,36,10)}
  if(id==="switcher"){ctx.strokeStyle="#111";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(bx+12,hy-17);ctx.lineTo(bx+24,hy-30);ctx.stroke()}
 }
-function drawFace(id,z,d){
- const bx=z.bodyX,hy=z.headY;
- const expressive=o=>o.attack>0||o.techAnim>0||o.domainAnim>0;
- const blink=!expressive(p)&&((time%3.6)>3.46 || (time%7.9)>7.78);
- const angry=["sukuna","meguna","heian","king","killer","judge"].includes(id)||p.attack>0;
- const eyeY=hy+1, sep=7;
- ctx.strokeStyle="#11131a";ctx.fillStyle="#11131a";ctx.lineCap="round";
- if(id==="honored"){
-   ctx.strokeStyle="#f7fbff";ctx.globalAlpha=.32;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(bx-11,hy+1);ctx.lineTo(bx+11,hy+1);ctx.stroke();ctx.globalAlpha=1;return;
- }
- if(blink){
-   ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(bx-sep-3,eyeY);ctx.lineTo(bx-sep+3,eyeY);ctx.moveTo(bx+sep-3,eyeY);ctx.lineTo(bx+sep+3,eyeY);ctx.stroke();
- }else{
-   ctx.beginPath();ctx.ellipse(bx-sep,eyeY,2.4,3,0,0,Math.PI*2);ctx.ellipse(bx+sep,eyeY,2.4,3,0,0,Math.PI*2);ctx.fill();
-   if(["thunder","angel","ice"].includes(id)){ctx.fillStyle=cur().accent;ctx.beginPath();ctx.arc(bx-sep,eyeY,1,0,Math.PI*2);ctx.arc(bx+sep,eyeY,1,0,Math.PI*2);ctx.fill()}
- }
- ctx.strokeStyle="#17181c";ctx.lineWidth=1.6;
- ctx.beginPath();
- ctx.moveTo(bx-sep-4,hy-6+(angry?2:0));ctx.lineTo(bx-sep+3,hy-7-(angry?1:0));
- ctx.moveTo(bx+sep-3,hy-7-(angry?1:0));ctx.lineTo(bx+sep+4,hy-6+(angry?2:0));ctx.stroke();
- ctx.strokeStyle="#6b4b43";ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(bx-3,hy+10);ctx.quadraticCurveTo(bx,hy+12+(p.techAnim>0?-4:p.attack>0?-2:angry?-1:1),bx+4,hy+10);ctx.stroke();
- if(id==="blood"){ctx.strokeStyle="#7a1d2a";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(bx-13,hy+5);ctx.lineTo(bx+13,hy+5);ctx.stroke()}
- if(id==="sukuna"||id==="meguna"||id==="heian"){
-   ctx.fillStyle="#5b1721";
-   if(!blink){ctx.beginPath();ctx.ellipse(bx-12,hy-7,1.8,2.2,0,0,Math.PI*2);ctx.ellipse(bx+12,hy-7,1.8,2.2,0,0,Math.PI*2);ctx.fill()}
- }
-}
 function outfitExtras(id,z,d){
  if(id==="vessel"){ctx.strokeStyle="#a7192d";ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(-13+z.bodyX,z.bodyY-5);ctx.lineTo(z.bodyX,z.bodyY+5);ctx.lineTo(14+z.bodyX,z.bodyY-5);ctx.stroke()}
  if(id==="judge"){ctx.strokeStyle="#d7d7d7";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(z.bodyX,z.bodyY+3);ctx.lineTo(z.bodyX,z.bodyY+22);ctx.stroke();ctx.strokeStyle="#9a7d3b";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(d*18,-38);ctx.lineTo(d*42,-20);ctx.stroke()}
@@ -316,10 +290,14 @@ function outfitExtras(id,z,d){
 function fighter(o){const f=cur(),id=f.id,z=pose(o),d=o.face;ctx.save();ctx.translate(o.x,o.y);ctx.rotate(z.rot);ctx.lineCap="round";ctx.lineJoin="round";
  if(o.domainActive>0){ctx.strokeStyle=f.accent;ctx.globalAlpha=.22+.1*Math.sin(time*11);ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-56,52+Math.sin(time*7)*6,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
  ctx.strokeStyle=f.body;ctx.lineWidth=id==="honored"?12:9;ctx.beginPath();ctx.moveTo(z.bodyX,z.bodyY);ctx.lineTo(z.bodyX,-20);ctx.stroke();
+ const leftLegFront=z.ll[2]>z.rl[2],backLeg=leftLegFront?z.rl:z.ll,frontLeg=leftLegFront?z.ll:z.rl;
+ const leftArmFront=z.la[2]>z.ra[2],backArm=leftArmFront?z.ra:z.la,frontArm=leftArmFront?z.la:z.ra;
+ limb(z.bodyX,-20,backLeg[0]+z.bodyX,backLeg[1],backLeg[2]+z.bodyX,backLeg[3],7,f.body);
+ limb(z.bodyX,-49,backArm[0]+z.bodyX,backArm[1],backArm[2]+z.bodyX,backArm[3],7,f.body);
  outfitExtras(id,z,d);
- limb(z.bodyX,-49,z.la[0]+z.bodyX,z.la[1],z.la[2]+z.bodyX,z.la[3],7,f.body);limb(z.bodyX,-49,z.ra[0]+z.bodyX,z.ra[1],z.ra[2]+z.bodyX,z.ra[3],7,f.body);limb(z.bodyX,-20,z.ll[0]+z.bodyX,z.ll[1],z.ll[2]+z.bodyX,z.ll[3],7,f.body);limb(z.bodyX,-20,z.rl[0]+z.bodyX,z.rl[1],z.rl[2]+z.bodyX,z.rl[3],7,f.body);
- ctx.fillStyle=f.skin;ctx.beginPath();ctx.arc(z.bodyX,z.headY,18,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#101114";ctx.lineWidth=3;ctx.stroke();hair(id,z.bodyX,z.headY,o);
- drawFace(id,z,d);
+ ctx.fillStyle="#0f1116";ctx.beginPath();ctx.arc(z.bodyX,z.headY,18,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#0f1116";ctx.lineWidth=3;ctx.stroke();hair(id,z.bodyX,z.headY,o);
+ limb(z.bodyX,-49,frontArm[0]+z.bodyX,frontArm[1],frontArm[2]+z.bodyX,frontArm[3],7,f.body);
+ limb(z.bodyX,-20,frontLeg[0]+z.bodyX,frontLeg[1],frontLeg[2]+z.bodyX,frontLeg[3],7,f.body);
  if(o.blockBlend>.1){ctx.strokeStyle=f.accent;ctx.globalAlpha=.3+.2*o.blockBlend;ctx.lineWidth=2+o.blockBlend*2;ctx.beginPath();ctx.arc(d*25,-50,31,-1.15,1.15);ctx.stroke();ctx.globalAlpha=1}
  if(o.techAnim>0)drawTechCharge(id,z,d,1-o.techAnim/o.techMax);
  ctx.restore()}
