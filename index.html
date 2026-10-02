@@ -58,6 +58,7 @@
       <button data-menu="custom">CUSTOM TECHNIQUE</button>
       <button data-menu="customdomain">CUSTOM DOMAIN</button>
       <button data-menu="controls">DESKTOP CONTROLS</button>
+      <button data-menu="settings">SETTINGS</button>
     </nav>
     <small>Choose a fighter, build a technique, or test everything in sandbox.</small>
   </section>
@@ -104,6 +105,15 @@
     <div class="builderActions"><button id="saveCustomDomain">SAVE DOMAIN</button><span id="customDomainSaved">No custom domain saved yet.</span></div>
   </section>
 
+  <section class="menuCard settingsScreen" data-screen="settings">
+    <div class="screenHead"><button data-menu="home">← BACK</button><div><b>SETTINGS</b><small>Combat presentation</small></div></div>
+    <div class="builder">
+      <label>SCREEN SHAKE<input id="setShake" type="range" min="0" max="100" value="100"><output id="setShakeOut">100%</output></label>
+      <label>VFX DENSITY<input id="setVfx" type="range" min="25" max="100" value="100"><output id="setVfxOut">100%</output></label>
+      <label><span>REDUCED FLASH</span><input id="setFlash" type="checkbox"></label>
+    </div>
+  </section>
+
   <section class="menuCard controlsScreen" data-screen="controls">
     <div class="screenHead"><button data-menu="home">← BACK</button><div><b>DESKTOP CONTROLS</b><small>Keyboard layout</small></div></div>
     <div class="controlsGrid">
@@ -112,6 +122,12 @@
       <kbd>SHIFT</kbd><span>Dash</span><kbd>L</kbd><span>Block</span><kbd>ESC</kbd><span>Pause / resume</span>
     </div>
   </section>
+</div>
+
+<div id="matchEnd" class="matchEnd">
+  <strong id="matchEndTitle">KO</strong>
+  <span id="matchEndSub"></span>
+  <div><button id="rematchBtn">REMATCH</button><button id="matchMenuBtn">MENU</button></div>
 </div>
 
 <div id="sandboxPanel">
