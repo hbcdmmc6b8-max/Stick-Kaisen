@@ -108,3 +108,28 @@ body.menu-open #mobile{pointer-events:none}
  .builder{grid-template-columns:1fr;padding:10px}.screenHead{padding:12px}.controlsGrid{padding:14px}
  #sandboxPanel{top:60px;left:8px;width:152px}
 }
+
+/* ===== POLISH PASS: MOBILE FRAMING / SANDBOX / CONTROLS ===== */
+@media(orientation:portrait) and (max-width:800px){
+  #game{grid-template-rows:64px 1fr 48px}
+  header{padding:7px 10px;min-height:64px}
+  #title{top:7px;font-size:10px}
+  main{min-height:0}
+  footer{height:48px;padding:5px 10px}
+  #mobile{left:8px;right:8px;bottom:56px;align-items:flex-end}
+  .move{width:112px;gap:4px}
+  .actions{width:168px;gap:4px}
+  .move button,.actions button{width:44px;height:44px;font-size:7px;box-shadow:0 3px 12px #0007}
+  .actions .attack{width:56px;height:56px;font-size:10px}
+  .actions .domain,.actions .menuBtn,.actions .swap,.actions .custom,.actions .evolve{width:48px;height:39px;border-radius:14px}
+  #sandboxPanel{top:72px;left:8px;width:132px;padding:8px;border-radius:10px;gap:6px;transform:scale(.88);transform-origin:top left}
+  #sandboxPanel b{font-size:9px}
+  #sandboxPanel label{font-size:7px;line-height:1.1}
+  #sandboxPanel button{padding:7px;font-size:8px}
+}
+@media(orientation:landscape) and (max-height:500px){
+  #sandboxPanel{top:56px;left:8px;width:142px;padding:8px;gap:6px}
+  #mobile{bottom:45px}
+  .move button,.actions button{width:46px;height:46px}
+  .actions .attack{width:56px;height:56px}
+}
