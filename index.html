@@ -55,6 +55,7 @@
       <button data-menu="play">PLAY</button>
       <button data-menu="sandbox">SANDBOX</button>
       <button data-menu="custom">CUSTOM TECHNIQUE</button>
+      <button data-menu="customdomain">CUSTOM DOMAIN</button>
       <button data-menu="controls">DESKTOP CONTROLS</button>
     </nav>
     <small>Choose a fighter, build a technique, or test everything in sandbox.</small>
@@ -63,6 +64,11 @@
   <section class="menuCard selectScreen" data-screen="select">
     <div class="screenHead"><button data-menu="home">← BACK</button><div><b>CHOOSE YOUR FIGHTER</b><small id="selectMode">BATTLE</small></div></div>
     <div id="characterGrid" class="characterGrid"></div>
+    <div class="battleSetup">
+      <label>OPPONENT<select id="opponentSelect"></select></label>
+      <label>STAGE<select id="stageSelect"><option value="city">RUINED CITY</option><option value="school">JUJUTSU SCHOOL</option><option value="subway">SUBWAY</option><option value="rooftop">ROOFTOP</option><option value="shrine">SHRINE DISTRICT</option></select></label>
+      <label>CPU<select id="difficultySelect"><option value="0">TRAINING</option><option value="1">NORMAL</option><option value="2">HARD</option><option value="3">SPECIAL GRADE</option></select></label>
+    </div>
     <div class="selectedBar"><div><span id="selectedName">VESSEL</span><small id="selectedTechs"></small></div><button id="startFight">START</button></div>
   </section>
 
@@ -84,12 +90,25 @@
     <div class="builderActions"><button id="saveCustom">SAVE TECHNIQUE</button><span id="customSaved">No custom technique saved yet.</span></div>
   </section>
 
+  <section class="menuCard customDomainScreen" data-screen="customdomain">
+    <div class="screenHead"><button data-menu="home">← BACK</button><div><b>CUSTOM DOMAIN LAB</b><small>Build a personal domain for sandbox and custom-tech play.</small></div></div>
+    <div class="builder">
+      <label>DOMAIN NAME<input id="cdName" maxlength="28" value="CURSED SANCTUM"></label>
+      <label>SUBTITLE<input id="cdSub" maxlength="40" value="MY RULES DEFINE THIS SPACE"></label>
+      <label>COLOR<input id="cdColor" type="color" value="#ff3049"></label>
+      <label>CE COST<input id="cdCost" type="range" min="0" max="100" value="80"><output id="cdCostOut">80</output></label>
+      <label>DURATION<input id="cdDuration" type="range" min="3" max="20" value="8"><output id="cdDurationOut">8s</output></label>
+      <label>BUFF<select id="cdBuff"><option value="damage">Damage boost</option><option value="speed">Speed boost</option><option value="ce">CE regeneration</option><option value="range">Technique range</option></select></label>
+    </div>
+    <div class="builderActions"><button id="saveCustomDomain">SAVE DOMAIN</button><span id="customDomainSaved">No custom domain saved yet.</span></div>
+  </section>
+
   <section class="menuCard controlsScreen" data-screen="controls">
     <div class="screenHead"><button data-menu="home">← BACK</button><div><b>DESKTOP CONTROLS</b><small>Keyboard layout</small></div></div>
     <div class="controlsGrid">
       <kbd>A / D</kbd><span>Move</span><kbd>W / SPACE</kbd><span>Jump</span><kbd>J</kbd><span>M1 combo</span><kbd>K</kbd><span>Technique</span>
       <kbd>I</kbd><span>Next technique</span><kbd>R</kbd><span>Custom technique</span><kbd>E</kbd><span>Sukuna evolution</span><kbd>U</kbd><span>Domain</span>
-      <kbd>SHIFT</kbd><span>Dash</span><kbd>L</kbd><span>Block</span><kbd>ESC</kbd><span>Pause / menu</span>
+      <kbd>SHIFT</kbd><span>Dash</span><kbd>L</kbd><span>Block</span><kbd>ESC</kbd><span>Pause / resume</span>
     </div>
   </section>
 </div>
