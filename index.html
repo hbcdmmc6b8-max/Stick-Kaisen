@@ -71,9 +71,13 @@
     <div class="builder">
       <label>NAME<input id="ctName" maxlength="22" value="CURSED BLAST"></label>
       <label>EFFECT<select id="ctEffect"><option value="blast">Blast</option><option value="slash">Slash</option><option value="beam">Beam</option><option value="rush">Rush</option><option value="teleport">Teleport Hit</option><option value="trap">Trap</option></select></label>
-      <label>DAMAGE<input id="ctDamage" type="range" min="5" max="35" value="18"><output id="ctDamageOut">18</output></label>
+      <label>DAMAGE<input id="ctDamage" type="range" min="5" max="40" value="18"><output id="ctDamageOut">18</output></label>
       <label>CE COST<input id="ctCost" type="range" min="0" max="60" value="25"><output id="ctCostOut">25</output></label>
-      <label>RANGE<input id="ctRange" type="range" min="90" max="500" value="260"><output id="ctRangeOut">260</output></label>
+      <label>RANGE<input id="ctRange" type="range" min="90" max="560" value="260"><output id="ctRangeOut">260</output></label>
+      <label>HIT COUNT<input id="ctHits" type="range" min="1" max="6" value="1"><output id="ctHitsOut">1</output></label>
+      <label>KNOCKBACK<input id="ctKnock" type="range" min="100" max="1000" value="520"><output id="ctKnockOut">520</output></label>
+      <label>COOLDOWN<input id="ctCooldown" type="range" min="0" max="8" step=".5" value="2"><output id="ctCooldownOut">2s</output></label>
+      <label>CHARGE TIME<input id="ctCharge" type="range" min="0" max="1.8" step=".1" value=".7"><output id="ctChargeOut">0.7s</output></label>
       <label>USE CONDITION<select id="ctUse"><option value="any">Any time</option><option value="ground">Ground only</option><option value="air">Air only</option><option value="dash">After dash</option><option value="awakened">Awakened only</option><option value="domain">Domain only</option></select></label>
       <label>COLOR<input id="ctColor" type="color" value="#8f6cff"></label>
     </div>
@@ -96,7 +100,14 @@
   <label><input id="sbCe" type="checkbox" checked> Infinite CE</label>
   <label><input id="sbAw" type="checkbox" checked> Infinite AWK</label>
   <label><input id="sbSlow" type="checkbox"> Slow motion</label>
-  <button id="sbReset">RESET</button>
+  <label><input id="sbDomain" type="checkbox"> Infinite domain</label>
+  <label><input id="sbCooldown" type="checkbox"> No cooldowns</label>
+  <label><input id="sbHitboxes" type="checkbox"> Show hitboxes</label>
+  <label><input id="sbDummyBlock" type="checkbox"> Dummy blocks</label>
+  <label><input id="sbDummyMove" type="checkbox"> Dummy movement</label>
+  <label>DUMMY HP <input id="sbDummyHp" type="range" min="25" max="500" step="25" value="100"><span id="sbDummyHpOut">100</span></label>
+  <button id="sbReset">RESET POSITIONS</button>
+  <button id="sbRefill">REFILL EVERYTHING</button>
 </div>
 </div>
 <script src="game.js"></script>
